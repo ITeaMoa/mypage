@@ -10,6 +10,8 @@ public class ApplicationEntity extends BaseEntity{
     private StatusType status;
     private String feedType;
 
+    public ApplicationEntity() {}
+
     @DynamoDbAttribute("part")
     public String getPart(){
         return part;

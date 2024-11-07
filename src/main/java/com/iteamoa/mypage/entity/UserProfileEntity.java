@@ -15,6 +15,8 @@ public class UserProfileEntity extends BaseEntity {
     private List<String> personalUrl;
     private List<String> experiences;
 
+    public UserProfileEntity() {}
+
     @DynamoDbAttribute("name")
     public String getName() {
         return name;
