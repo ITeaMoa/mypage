@@ -1,5 +1,6 @@
 package com.iteamoa.mypage.dto;
 
+import com.iteamoa.mypage.constant.DynamoDbEntityType;
 import com.iteamoa.mypage.utils.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class FeedDto {
     private String pk;
     private String sk;
-    private String entityType;
+    private DynamoDbEntityType entityType;
     private String creatorId;
     private String title;
     private int recruitmentNum;

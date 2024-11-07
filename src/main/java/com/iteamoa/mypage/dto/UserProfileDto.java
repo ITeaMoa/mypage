@@ -16,7 +16,7 @@ public class UserProfileDto {
     private String pk;
     private String sk;
     private String entityType;
-    private String Name;
+    private String name;
     private String avatarUrl;
     private String headLine;
     private List<String> tags;
