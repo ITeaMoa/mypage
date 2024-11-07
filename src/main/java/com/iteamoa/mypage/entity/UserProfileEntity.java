@@ -1,18 +1,13 @@
-package com.iteamoa.mypage.dto;
+package com.iteamoa.mypage.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserProfileDto {
+@DynamoDbBean
+public class UserProfileEntity {
     private String pk;
     private String sk;
     private String entityType;
