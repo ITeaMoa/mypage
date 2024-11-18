@@ -29,13 +29,21 @@ public class WritingListController {
 
     @PatchMapping("/accept")
     public ResponseEntity<?> acceptApplication(@RequestBody ApplicationDto applicationDto) {
-        writingListService.acceptApplication(applicationDto);
+        try {
+            writingListService.acceptApplication(applicationDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/reject")
     public ResponseEntity<?> rejectApplication(@RequestBody ApplicationDto applicationDto) {
-        writingListService.rejectApplication(applicationDto);
+        try{
+            writingListService.rejectApplication(applicationDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
         return ResponseEntity.ok().build();
     }
 

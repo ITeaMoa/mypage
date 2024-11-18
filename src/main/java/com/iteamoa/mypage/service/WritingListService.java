@@ -40,14 +40,20 @@ public class WritingListService {
                 .collect(Collectors.toList());
     }
 
-    public void acceptApplication(ApplicationDto applicationDto){
+    public void acceptApplication(ApplicationDto applicationDto) throws Exception {
         ApplicationEntity applicationEntity = applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk());
+        if (applicationEntity == null) {
+            throw new Exception("Application does not exist");
+        }
         applicationEntity.setStatus(StatusType.ACCEPTED);
         applicationRepository.updateApplication(applicationEntity);
     }
 
-    public void rejectApplication(ApplicationDto applicationDto){
+    public void rejectApplication(ApplicationDto applicationDto) throws Exception {
         ApplicationEntity applicationEntity = applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk());
+        if (applicationEntity == null) {
+            throw new Exception("Application does not exist");
+        }
         applicationEntity.setStatus(StatusType.REJECTED);
         applicationRepository.updateApplication(applicationEntity);
     }

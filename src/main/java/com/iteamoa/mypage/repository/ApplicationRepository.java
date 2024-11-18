@@ -2,7 +2,6 @@ package com.iteamoa.mypage.repository;
 
 import com.iteamoa.mypage.constant.DynamoDbEntityType;
 import com.iteamoa.mypage.entity.ApplicationEntity;
-import com.iteamoa.mypage.entity.FeedEntity;
 import com.iteamoa.mypage.utils.KeyConverter;
 import org.springframework.stereotype.Repository;
 import software.amazon.awssdk.core.pagination.sync.SdkIterable;
