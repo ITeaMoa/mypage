@@ -30,4 +30,9 @@ public class WritingListController {
         return ResponseEntity.ok(writingListService.getApplicationList(feedId, part));
     }
 
+    @GetMapping("/profile")
+    public ResponseEntity<?> getProfile(@RequestParam String userId) {
+        return ResponseEntity.ok(writingListService.getUserProfile(userId));
+    }
+
 }

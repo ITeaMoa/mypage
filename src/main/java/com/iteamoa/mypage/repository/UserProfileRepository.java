@@ -1,6 +1,8 @@
 package com.iteamoa.mypage.repository;
 
+import com.iteamoa.mypage.constant.DynamoDbEntityType;
 import com.iteamoa.mypage.entity.UserProfileEntity;
+import com.iteamoa.mypage.utils.KeyConverter;
 import org.springframework.stereotype.Repository;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -16,6 +18,13 @@ public class UserProfileRepository {
                 .dynamoDbClient(dynamoDbClient)
                 .build();
         this.userProfileTable = enhancedClient.table("IM_MAIN_TB", TableSchema.fromBean(UserProfileEntity.class));
+    }
+
+    public UserProfileEntity findByUserId(String userId) {
+        return userProfileTable.getItem(KeyConverter.toKey(
+                KeyConverter.toPk(DynamoDbEntityType.USER, userId),
+                DynamoDbEntityType.PROFILE.getType()
+        ));
     }
 
 }

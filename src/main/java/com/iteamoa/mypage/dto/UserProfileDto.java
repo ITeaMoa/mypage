@@ -1,5 +1,6 @@
 package com.iteamoa.mypage.dto;
 
+import com.iteamoa.mypage.entity.UserProfileEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,20 @@ public class UserProfileDto {
     private List<String> personalUrl;
     private List<String> experiences;
     private LocalDateTime timestamp;
+
+    public static UserProfileDto toUserProfileDto(UserProfileEntity userProfileEntity) {
+        return new UserProfileDto(
+                userProfileEntity.getPk(),
+                userProfileEntity.getSk(),
+                userProfileEntity.getEntityType().getType(),
+                userProfileEntity.getName(),
+                userProfileEntity.getAvatarUrl(),
+                userProfileEntity.getHeadLine(),
+                userProfileEntity.getTags(),
+                userProfileEntity.getEducations(),
+                userProfileEntity.getPersonalUrl(),
+                userProfileEntity.getExperiences(),
+                userProfileEntity.getTimestamp()
+        );
+    }
 }

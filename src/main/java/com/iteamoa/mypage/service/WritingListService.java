@@ -2,6 +2,7 @@ package com.iteamoa.mypage.service;
 
 import com.iteamoa.mypage.dto.ApplicationDto;
 import com.iteamoa.mypage.dto.FeedDto;
+import com.iteamoa.mypage.dto.UserProfileDto;
 import com.iteamoa.mypage.entity.ApplicationEntity;
 import com.iteamoa.mypage.entity.FeedEntity;
 import com.iteamoa.mypage.repository.ApplicationRepository;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +46,10 @@ public class WritingListService {
                 .map(ApplicationDto::toApplicationDto)
                 .collect(Collectors.toList());
         return applicationDtos;
+    }
+
+    public UserProfileDto getUserProfile(String userId) {
+        return UserProfileDto.toUserProfileDto(userProfileRepository.findByUserId(userId));
     }
 
 }
