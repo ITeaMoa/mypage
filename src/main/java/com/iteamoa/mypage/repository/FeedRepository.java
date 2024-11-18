@@ -29,7 +29,7 @@ public class FeedRepository {
         this.searchByCreatorIndex = feedTable.index("SearchByCreator-index");
     }
 
-    public List<FeedEntity> getFeedByCreatorIdAndSk(String creatorId, String sk) {
+    public List<FeedEntity> findFeedByCreatorIdAndSk(String creatorId, String sk) {
         QueryConditional queryConditional = QueryConditional.keyEqualTo(k -> k
                 .partitionValue(KeyConverter.toPk(DynamoDbEntityType.USER, creatorId))
                 .sortValue(KeyConverter.toPk(DynamoDbEntityType.FEEDTYPE, sk))

@@ -26,7 +26,7 @@ public class FeedEntity extends BaseEntity {
     private List<Comment> comments;
     private boolean postStatus;
     private boolean savedFeed;
-    private Map<String, Integer> applyRoles;
+    private Map<String, Integer> roles;
     private Map<String, Integer> recruitmentRoles;
 
     public FeedEntity() {}
@@ -47,7 +47,7 @@ public class FeedEntity extends BaseEntity {
         this.comments = feedDto.getComments();
         this.postStatus = feedDto.isPostStatus();
         this.savedFeed = feedDto.isSavedFeed();
-        this.applyRoles = feedDto.getApplyRoles();
+        this.roles = feedDto.getRoles();
         this.recruitmentRoles = feedDto.getRecruitmentRoles();
     }
 
@@ -113,9 +113,9 @@ public class FeedEntity extends BaseEntity {
         return savedFeed;
     }
 
-    @DynamoDbAttribute("applyRoles")
-    public Map<String, Integer> getApplyRoles(){
-        return applyRoles;
+    @DynamoDbAttribute("roles")
+    public Map<String, Integer> getRoles(){
+        return roles;
     }
 
     @DynamoDbAttribute("recruitmentRoles")

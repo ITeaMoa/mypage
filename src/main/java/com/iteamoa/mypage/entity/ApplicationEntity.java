@@ -1,9 +1,12 @@
 package com.iteamoa.mypage.entity;
 
 import com.iteamoa.mypage.constant.StatusType;
+import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondarySortKey;
 
+@Setter
 @DynamoDbBean
 public class ApplicationEntity extends BaseEntity{
     private String part;
@@ -13,6 +16,7 @@ public class ApplicationEntity extends BaseEntity{
     public ApplicationEntity() {}
 
     @DynamoDbAttribute("part")
+    @DynamoDbSecondarySortKey(indexNames = {"Application-index"})
     public String getPart(){
         return part;
     }
@@ -26,5 +30,6 @@ public class ApplicationEntity extends BaseEntity{
     public String getFeedType(){
         return feedType;
     }
+
 
 }

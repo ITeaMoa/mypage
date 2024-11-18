@@ -29,7 +29,7 @@ public abstract class BaseEntity {
 
     @DynamoDbSortKey
     @DynamoDbAttribute("Sk")
-    @DynamoDbSecondaryPartitionKey(indexNames = {"MostLikedFeed-index", "PostedFeed-index"})
+    @DynamoDbSecondaryPartitionKey(indexNames = {"MostLikedFeed-index", "PostedFeed-index", "Application-index"})
     @DynamoDbSecondarySortKey(indexNames = {"SearchByCreator-index"})
     public String getSk() {
         return sk;

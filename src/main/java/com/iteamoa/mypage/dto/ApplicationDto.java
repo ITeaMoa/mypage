@@ -2,6 +2,8 @@ package com.iteamoa.mypage.dto;
 
 import com.iteamoa.mypage.constant.StatusType;
 
+import com.iteamoa.mypage.entity.ApplicationEntity;
+import com.iteamoa.mypage.utils.KeyConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +23,16 @@ public class ApplicationDto {
     private StatusType status;
     private String feedType;
     private LocalDateTime timestamp;
+
+    public static ApplicationDto toApplicationDto(ApplicationEntity applicationEntity) {
+        return new ApplicationDto(
+                KeyConverter.toStringId(applicationEntity.getPk()),
+                KeyConverter.toStringId(applicationEntity.getSk()),
+                applicationEntity.getEntityType().getType(),
+                applicationEntity.getPart(),
+                applicationEntity.getStatus(),
+                applicationEntity.getFeedType(),
+                applicationEntity.getTimestamp()
+        );
+    }
 }

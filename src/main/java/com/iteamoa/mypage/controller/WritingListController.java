@@ -10,14 +10,24 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("writing")
+@RequestMapping("/writing")
 public class WritingListController {
     private final WritingListService writingListService;
 
     @GetMapping
     public ResponseEntity<?> getWritingList(@RequestParam String creatorId, @RequestParam String sk) {
-        List<FeedDto> FeedDTOs = writingListService.getWritingList(creatorId, sk);
-        return ResponseEntity.ok(FeedDTOs);
+        return ResponseEntity.ok(writingListService.getWritingList(creatorId, sk));
+    }
+
+    @GetMapping("/application")
+    public ResponseEntity<?> getApplication(@RequestParam String feedId) {
+        return ResponseEntity.ok(writingListService.getApplicationList(feedId));
+    }
+
+
+    @GetMapping("/part")
+    public ResponseEntity<?> getApplicationByRole(@RequestParam String feedId, @RequestParam String part) {
+        return ResponseEntity.ok(writingListService.getApplicationList(feedId, part));
     }
 
 }

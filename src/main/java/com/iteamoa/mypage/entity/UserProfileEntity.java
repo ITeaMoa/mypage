@@ -1,10 +1,12 @@
 package com.iteamoa.mypage.entity;
 
+import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 
 import java.util.List;
 
+@Setter
 @DynamoDbBean
 public class UserProfileEntity extends BaseEntity {
     private String name;
