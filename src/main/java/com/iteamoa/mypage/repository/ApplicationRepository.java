@@ -53,4 +53,15 @@ public class ApplicationRepository {
         return applicationEntities;
     }
 
+    public ApplicationEntity getApplication(String userId, String feedId){
+        return applicationTable.getItem(KeyConverter.toKey(
+                KeyConverter.toPk(DynamoDbEntityType.USER, userId),
+                KeyConverter.toPk(DynamoDbEntityType.APPLICATION, feedId)
+        ));
+    }
+
+    public void updateApplication(ApplicationEntity applicationEntity) {
+        applicationTable.updateItem(applicationEntity);
+    }
+
 }

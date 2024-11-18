@@ -1,5 +1,6 @@
 package com.iteamoa.mypage.service;
 
+import com.iteamoa.mypage.constant.StatusType;
 import com.iteamoa.mypage.dto.ApplicationDto;
 import com.iteamoa.mypage.dto.FeedDto;
 import com.iteamoa.mypage.dto.UserProfileDto;
@@ -34,18 +35,21 @@ public class WritingListService {
 
     public List<ApplicationDto> getApplicationList(String feedId, String part) {
         List<ApplicationEntity> applicationEntities = applicationRepository.findApplication(feedId, part);
-        List<ApplicationDto> applicationDtos = applicationEntities.stream()
+        return applicationEntities.stream()
                 .map(ApplicationDto::toApplicationDto)
                 .collect(Collectors.toList());
-        return applicationDtos;
     }
 
-    public List<ApplicationDto> getApplicationList(String feedId) {
-        List<ApplicationEntity> applicationEntities = applicationRepository.findApplication(feedId, null);
-        List<ApplicationDto> applicationDtos = applicationEntities.stream()
-                .map(ApplicationDto::toApplicationDto)
-                .collect(Collectors.toList());
-        return applicationDtos;
+    public void acceptApplication(ApplicationDto applicationDto){
+        ApplicationEntity applicationEntity = applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk());
+        applicationEntity.setStatus(StatusType.ACCEPTED);
+        applicationRepository.updateApplication(applicationEntity);
+    }
+
+    public void rejectApplication(ApplicationDto applicationDto){
+        ApplicationEntity applicationEntity = applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk());
+        applicationEntity.setStatus(StatusType.REJECTED);
+        applicationRepository.updateApplication(applicationEntity);
     }
 
     public UserProfileDto getUserProfile(String userId) {
