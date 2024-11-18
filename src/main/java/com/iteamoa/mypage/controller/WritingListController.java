@@ -4,9 +4,7 @@ import com.iteamoa.mypage.dto.FeedDto;
 import com.iteamoa.mypage.service.WritingListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,10 +14,10 @@ import java.util.List;
 public class WritingListController {
     private final WritingListService writingListService;
 
-//    @GetMapping
-//    public ResponseEntity<?> getWritingList() {
-//        List<FeedDto> FeedDTOs = writingListService.getWritingList();
-//        return ResponseEntity.ok(FeedDTOs);
-//    }
+    @GetMapping
+    public ResponseEntity<?> getWritingList(@RequestParam String creatorId, @RequestParam String sk) {
+        List<FeedDto> FeedDTOs = writingListService.getWritingList(creatorId, sk);
+        return ResponseEntity.ok(FeedDTOs);
+    }
 
 }

@@ -1,7 +1,9 @@
 package com.iteamoa.mypage.dto;
 
 import com.iteamoa.mypage.constant.DynamoDbEntityType;
+import com.iteamoa.mypage.entity.FeedEntity;
 import com.iteamoa.mypage.utils.Comment;
+import com.iteamoa.mypage.utils.KeyConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,7 @@ import java.util.Map;
 public class FeedDto {
     private String pk;
     private String sk;
-    private DynamoDbEntityType entityType;
+    private String entityType;
     private String creatorId;
     private String title;
     private int recruitmentNum;
@@ -35,5 +37,27 @@ public class FeedDto {
     private Map<String, Integer> applyRoles;
     private Map<String, Integer> recruitmentRoles;
 
+    public static FeedDto toFeedDto(FeedEntity feedEntity){
+        return new FeedDto(
+                KeyConverter.toStringId(feedEntity.getPk()),
+                KeyConverter.toStringId(feedEntity.getSk()),
+                feedEntity.getEntityType().getType(),
+                KeyConverter.toStringId(feedEntity.getCreatorId()),
+                feedEntity.getTitle(),
+                feedEntity.getRecruitmentNum(),
+                feedEntity.getDeadline(),
+                feedEntity.getPlace(),
+                feedEntity.getPeriod(),
+                feedEntity.getTags(),
+                feedEntity.getLikesCount(),
+                feedEntity.getContent(),
+                feedEntity.getComments(),
+                feedEntity.getPostStatus(),
+                feedEntity.getTimestamp(),
+                feedEntity.getSavedFeed(),
+                feedEntity.getApplyRoles(),
+                feedEntity.getRecruitmentRoles()
+        );
+    }
 
 }

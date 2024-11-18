@@ -1,18 +1,19 @@
 package com.iteamoa.mypage.entity;
 
 import com.iteamoa.mypage.constant.DynamoDbEntityType;
+import com.iteamoa.mypage.dto.FeedDto;
 import com.iteamoa.mypage.utils.Comment;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondarySortKey;
+import com.iteamoa.mypage.utils.KeyConverter;
+import lombok.Setter;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+@Setter
 @DynamoDbBean
 public class FeedEntity extends BaseEntity {
-    private DynamoDbEntityType entityType;
     private String creatorId;
     private String title;
     private int recruitmentNum;
@@ -29,8 +30,29 @@ public class FeedEntity extends BaseEntity {
     private Map<String, Integer> recruitmentRoles;
 
     public FeedEntity() {}
+    public FeedEntity(FeedDto feedDto){
+        super(
+                KeyConverter.toPk(DynamoDbEntityType.FEED, feedDto.getPk()),
+                KeyConverter.toPk(DynamoDbEntityType.FEEDTYPE, feedDto.getSk())
+        );
+        this.creatorId = KeyConverter.toPk(DynamoDbEntityType.USER, feedDto.getCreatorId());
+        this.title = feedDto.getTitle();
+        this.recruitmentNum = feedDto.getRecruitmentNum();
+        this.deadline = feedDto.getDeadline();
+        this.place = feedDto.getPlace();
+        this.period = feedDto.getPeriod();
+        this.tags = feedDto.getTags();
+        this.likesCount = feedDto.getLikesCount();
+        this.content = feedDto.getContent();
+        this.comments = feedDto.getComments();
+        this.postStatus = feedDto.isPostStatus();
+        this.savedFeed = feedDto.isSavedFeed();
+        this.applyRoles = feedDto.getApplyRoles();
+        this.recruitmentRoles = feedDto.getRecruitmentRoles();
+    }
 
     @DynamoDbAttribute("creatorId")
+    @DynamoDbSecondaryPartitionKey(indexNames = {"SearchByCreator-index"})
     public String getCreatorId(){
         return creatorId;
     }

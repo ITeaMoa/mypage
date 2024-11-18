@@ -9,13 +9,13 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 @Repository
 public class ApplicationRepository {
-    private final DynamoDbTable<ApplicationEntity> applicationRepository;
+    private final DynamoDbTable<ApplicationEntity> applicationTable;
 
     public ApplicationRepository(DynamoDbClient dynamoDbClient) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(dynamoDbClient)
                 .build();
-        this.applicationRepository = enhancedClient.table("IM_MAIN_TB", TableSchema.fromBean(ApplicationEntity.class));
+        this.applicationTable = enhancedClient.table("IM_MAIN_TB", TableSchema.fromBean(ApplicationEntity.class));
     }
 
 }
