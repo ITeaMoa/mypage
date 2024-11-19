@@ -1,6 +1,7 @@
 package com.iteamoa.mypage.controller;
 
 import com.iteamoa.mypage.dto.ApplicationDto;
+import com.iteamoa.mypage.dto.FeedDto;
 import com.iteamoa.mypage.service.WritingListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,16 @@ public class WritingListController {
     public ResponseEntity<?> cancelApplication(@RequestBody ApplicationDto applicationDto) {
         try{
             writingListService.cancelApplication(applicationDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PatchMapping("/close")
+    public ResponseEntity<?> closeFeed(@RequestBody FeedDto feedDto) {
+        try{
+            writingListService.closeFeed(feedDto);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

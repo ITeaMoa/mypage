@@ -43,4 +43,16 @@ public class FeedRepository {
         pagedResult.forEach(page -> FeedEntities.addAll(page.items()));
         return FeedEntities;
     }
+
+    public FeedEntity getFeed(String feedId, String feedType){
+        return feedTable.getItem(KeyConverter.toKey(
+                KeyConverter.toPk(DynamoDbEntityType.FEED, feedId),
+                KeyConverter.toPk(DynamoDbEntityType.FEEDTYPE, feedType)
+        ));
+    }
+
+    public void updateFeed(FeedEntity feedEntity){
+        feedTable.updateItem(feedEntity);
+    }
+
 }

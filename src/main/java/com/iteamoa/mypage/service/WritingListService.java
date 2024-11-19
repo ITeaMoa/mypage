@@ -67,6 +67,22 @@ public class WritingListService {
         applicationRepository.updateApplication(applicationEntity);
     }
 
+    public void closeFeed(FeedDto feedDto) throws Exception {
+        FeedEntity feedEntity = feedRepository.getFeed(feedDto.getPk(), feedDto.getSk());
+        if (feedEntity == null) {
+            throw new Exception("Feed does not exist");
+        }
+        feedEntity.setPostStatus(false);
+        feedRepository.updateFeed(feedEntity);
+        List<ApplicationEntity> applicationEntities = applicationRepository.findApplication(feedDto.getPk(), null);
+        for (ApplicationEntity applicationEntity : applicationEntities) {
+            if(applicationEntity.getStatus() == StatusType.PENDING) {
+                applicationEntity.setStatus(StatusType.REJECTED);
+                applicationRepository.updateApplication(applicationEntity);
+            }
+        }
+    }
+
     public UserProfileDto getUserProfile(String userId) {
         return UserProfileDto.toUserProfileDto(userProfileRepository.findByUserId(userId));
     }

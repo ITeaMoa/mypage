@@ -17,25 +17,25 @@ public class Comment {
     private String userId;
     private String comment;
     private LocalDateTime timestamp;
-    private String name = "none";
+    private String name;
 
     @DynamoDbAttribute("name")
     public String getName() {
         return name;
     }
 
-    @DynamoDbAttribute("UserID")
+    @DynamoDbAttribute("userId")
     public String getUserId() {
         return userId;
     }
 
-    @DynamoDbAttribute("Comment")
+    @DynamoDbAttribute("comment")
     public String getComment() {
         return comment;
     }
 
     @DynamoDbConvertedBy(LocalDateTimeConverter.class)
-    @DynamoDbAttribute("Timestamp")
+    @DynamoDbAttribute("timestamp")
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
