@@ -58,6 +58,15 @@ public class WritingListService {
         applicationRepository.updateApplication(applicationEntity);
     }
 
+    public void cancelApplication(ApplicationDto applicationDto) throws Exception {
+        ApplicationEntity applicationEntity = applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk());
+        if (applicationEntity == null) {
+            throw new Exception("Application does not exist");
+        }
+        applicationEntity.setStatus(StatusType.PENDING);
+        applicationRepository.updateApplication(applicationEntity);
+    }
+
     public UserProfileDto getUserProfile(String userId) {
         return UserProfileDto.toUserProfileDto(userProfileRepository.findByUserId(userId));
     }

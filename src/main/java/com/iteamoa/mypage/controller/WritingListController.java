@@ -3,6 +3,7 @@ package com.iteamoa.mypage.controller;
 import com.iteamoa.mypage.dto.ApplicationDto;
 import com.iteamoa.mypage.service.WritingListService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class WritingListController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PatchMapping("/reject")
@@ -44,7 +45,17 @@ public class WritingListController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PatchMapping("/cancel")
+    public ResponseEntity<?> cancelApplication(@RequestBody ApplicationDto applicationDto) {
+        try{
+            writingListService.cancelApplication(applicationDto);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/profile")

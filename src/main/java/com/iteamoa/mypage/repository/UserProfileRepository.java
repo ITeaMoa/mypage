@@ -23,7 +23,7 @@ public class UserProfileRepository {
     public UserProfileEntity findByUserId(String userId) {
         return userProfileTable.getItem(KeyConverter.toKey(
                 KeyConverter.toPk(DynamoDbEntityType.USER, userId),
-                DynamoDbEntityType.PROFILE.getType()
+                KeyConverter.toPk(DynamoDbEntityType.PROFILE, "")
         ));
     }
 
