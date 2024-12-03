@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Setter
+@DynamoDbBean
 public abstract class BaseEntity {
     private String pk;
     private String sk;

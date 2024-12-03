@@ -31,5 +31,4 @@ public class ApplicationEntity extends BaseEntity{
         return feedType;
     }
 
-
 }
