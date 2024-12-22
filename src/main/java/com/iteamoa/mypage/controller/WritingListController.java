@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/writing")
+@RequestMapping("/my/writing")
 public class WritingListController {
     private final WritingListService writingListService;
 
