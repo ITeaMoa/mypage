@@ -76,7 +76,7 @@ public class WritingListController {
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
-        return ResponseEntity.ok("Connected successfully");
+        return ResponseEntity.ok("Connected Successfully");
     }
 
 }
