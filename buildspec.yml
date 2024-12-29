@@ -75,9 +75,10 @@ phases:
 
       # Deploy the latest image to the EKS cluster using Kubernetes manifests
       - echo "Applying deployment and service files to the cluster..."
-      - kubectl apply -f k8s/main-service-deployment.yaml
-      - kubectl apply -f k8s/main-service.yaml
+      - kubectl apply -f k8s/my-wrlist-service-deployment.yaml
+      - kubectl apply -f k8s/my-wrlist-service.yaml
+      - kubectl apply -f k8s/igress.yaml
 
       # Optionally, confirm that the deployment was successful
       - echo "Deployment applied. Verifying pods..."
-      - kubectl get pods -n main-namespace
+      - kubectl get pods -n my-namespace
