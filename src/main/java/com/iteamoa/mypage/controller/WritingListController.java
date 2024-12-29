@@ -74,4 +74,9 @@ public class WritingListController {
         return ResponseEntity.ok(writingListService.getUserProfile(userId));
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<?> test() {
+        return ResponseEntity.ok("Connected successfully");
+    }
+
 }
