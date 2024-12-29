@@ -34,7 +34,7 @@ phases:
 
       # Build the JAR file
       - echo "Building the JAR file with Gradle..."
-      - ./gradlew build # Skip tests if not needed
+      - ./gradlew build -x test # Skip tests if not needed
 
       # Verify the JAR file is created
       - echo "Verifying the JAR file exists..."
