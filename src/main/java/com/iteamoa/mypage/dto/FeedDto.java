@@ -20,6 +20,7 @@ import java.util.Map;
 public class FeedDto {
     private String pk;
     private String sk;
+    private String nickname;
     private String entityType;
     private String creatorId;
     private String title;
@@ -41,6 +42,7 @@ public class FeedDto {
         return new FeedDto(
                 KeyConverter.toStringId(feedEntity.getPk()),
                 KeyConverter.toStringId(feedEntity.getSk()),
+                feedEntity.getNickname(),
                 feedEntity.getEntityType().getType(),
                 KeyConverter.toStringId(feedEntity.getCreatorId()),
                 feedEntity.getTitle(),

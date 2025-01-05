@@ -14,6 +14,7 @@ import java.util.Map;
 @Setter
 @DynamoDbBean
 public class FeedEntity extends BaseEntity {
+    private String nickname;
     private String creatorId;
     private String title;
     private int recruitmentNum;
@@ -49,6 +50,11 @@ public class FeedEntity extends BaseEntity {
         this.savedFeed = feedDto.isSavedFeed();
         this.roles = feedDto.getRoles();
         this.recruitmentRoles = feedDto.getRecruitmentRoles();
+    }
+
+    @DynamoDbAttribute("nickname")
+    public String getNickname() {
+        return nickname;
     }
 
     @DynamoDbAttribute("creatorId")
