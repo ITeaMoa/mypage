@@ -10,18 +10,18 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS": 443}]'
     alb.ingress.kubernetes.io/group.name: "backend-api"  
-    alb.ingress.kubernetes.io/healthcheck-path: "/my/writhing/test"
+    alb.ingress.kubernetes.io/enable-cors: 'true'
+    alb.ingress.kubernetes.io/healthcheck-path: "/my/writing/test"
 spec:
   ingressClassName: alb
   rules:
   - host: iteamoa-api.brynnpark.cloud
     http:
       paths:
-      - path: /my/writhing
+      - path: /my/writing
         pathType: Prefix
         backend:
           service:
             name: my-wrlist-service
             port:
               number: 80
-      

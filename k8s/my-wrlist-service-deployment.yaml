@@ -5,18 +5,21 @@ metadata:
   namespace: my-namespace  # Match the Fargate namespace
   labels:
     app: fargate
+    svc: my-wrlist
 spec:
   replicas: 1  # Two pods running the service
   selector:
     matchLabels:
       app: fargate
+      svc: my-wrlist
   template:
     metadata:
       labels:
         app: fargate
+        svc: my-wrlist
     spec:
       containers:
-      - name: main-service
+      - name: my-wrlist-service
         image: 970547342771.dkr.ecr.ap-northeast-2.amazonaws.com/iteamoa/my-wrlist:latest # Use ECR
         ports:
         - containerPort: 8080  # Check container's exposed port 

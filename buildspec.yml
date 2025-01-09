@@ -77,7 +77,7 @@ phases:
       - echo "Applying deployment and service files to the cluster..."
       - kubectl apply -f k8s/my-wrlist-service-deployment.yaml
       - kubectl apply -f k8s/my-wrlist-service.yaml
-      - kubectl apply -f k8s/igress.yaml
+      - kubectl apply -f k8s/ingress.yaml
 
       # Optionally, confirm that the deployment was successful
       - echo "Deployment applied. Verifying pods..."
