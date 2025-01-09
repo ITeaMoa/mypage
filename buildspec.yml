@@ -1,5 +1,10 @@
 version: 0.2
 
+env:
+    secrets-manager:
+        AWS_ACCESS_KEY_ID: iteamoa/devops:AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: iteamoa/devops:AWS_SECRET_ACCESS_KEY
+
 phases:
   install:
     commands:
