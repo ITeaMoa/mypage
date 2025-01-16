@@ -9,19 +9,20 @@ import java.util.List;
 @Setter
 @DynamoDbBean
 public class UserProfileEntity extends BaseEntity {
-    private String name;
+    private String nickname;
     private String avatarUrl;
     private String headLine;
     private List<String> tags;
     private List<String> educations;
     private List<String> personalUrl;
     private List<String> experiences;
+    private String email;
 
     public UserProfileEntity() {}
 
-    @DynamoDbAttribute("name")
-    public String getName() {
-        return name;
+    @DynamoDbAttribute("nickname")
+    public String getNickname() {
+        return nickname;
     }
 
     @DynamoDbAttribute("avatarUrl")
@@ -53,4 +54,11 @@ public class UserProfileEntity extends BaseEntity {
     public List<String> getExperiences() {
         return experiences;
     }
+
+    @DynamoDbAttribute("email")
+    public String getEmail() {
+        return email;
+    }
+
+
 }

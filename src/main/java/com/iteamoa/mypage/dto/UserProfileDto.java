@@ -17,13 +17,14 @@ public class UserProfileDto {
     private String pk;
     private String sk;
     private String entityType;
-    private String name;
+    private String nickname;
     private String avatarUrl;
     private String headLine;
     private List<String> tags;
     private List<String> educations;
     private List<String> personalUrl;
     private List<String> experiences;
+    private String email;
     private LocalDateTime timestamp;
 
     public static UserProfileDto toUserProfileDto(UserProfileEntity userProfileEntity) {
@@ -31,13 +32,14 @@ public class UserProfileDto {
                 userProfileEntity.getPk(),
                 userProfileEntity.getSk(),
                 userProfileEntity.getEntityType().getType(),
-                userProfileEntity.getName(),
+                userProfileEntity.getNickname(),
                 userProfileEntity.getAvatarUrl(),
                 userProfileEntity.getHeadLine(),
                 userProfileEntity.getTags(),
                 userProfileEntity.getEducations(),
                 userProfileEntity.getPersonalUrl(),
                 userProfileEntity.getExperiences(),
+                userProfileEntity.getEmail(),
                 userProfileEntity.getTimestamp()
         );
     }
