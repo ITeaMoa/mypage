@@ -9,12 +9,12 @@ import com.iteamoa.mypage.entity.FeedEntity;
 import com.iteamoa.mypage.repository.ApplicationRepository;
 import com.iteamoa.mypage.repository.FeedRepository;
 import com.iteamoa.mypage.repository.UserProfileRepository;
+import com.iteamoa.mypage.utils.KeyConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,9 +35,11 @@ public class WritingListService {
 
     public List<ApplicationDto> getApplicationList(String feedId, String part) {
         List<ApplicationEntity> applicationEntities = applicationRepository.findApplication(feedId, part);
-        return applicationEntities.stream()
-                .map(ApplicationDto::toApplicationDto)
-                .collect(Collectors.toList());
+        List<ApplicationDto> applicationDtos = new ArrayList<>();
+        for (ApplicationEntity applicationEntity : applicationEntities) {
+            applicationDtos.add(ApplicationDto.toApplicationDto(applicationEntity, userProfileRepository.findByUserId(KeyConverter.toSeperatedId(applicationEntity.getPk()))));
+        }
+        return applicationDtos;
     }
 
     public void acceptApplication(ApplicationDto applicationDto) throws Exception {
