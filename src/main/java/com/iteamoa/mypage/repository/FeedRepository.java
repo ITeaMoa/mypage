@@ -13,8 +13,8 @@ import software.amazon.awssdk.enhanced.dynamodb.model.Page;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class FeedRepository {
@@ -39,9 +39,9 @@ public class FeedRepository {
                 .scanIndexForward(false)
                 .attributesToProject());
 
-        List<FeedEntity> FeedEntities = new ArrayList<>();
-        pagedResult.forEach(page -> FeedEntities.addAll(page.items()));
-        return FeedEntities;
+        return pagedResult.stream()
+                .flatMap(page -> page.items().stream())
+                .collect(Collectors.toList());
     }
 
     public FeedEntity getFeed(String feedId, String feedType){

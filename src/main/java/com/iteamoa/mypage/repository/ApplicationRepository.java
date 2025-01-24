@@ -13,8 +13,8 @@ import software.amazon.awssdk.enhanced.dynamodb.model.Page;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ApplicationRepository {
@@ -30,26 +30,19 @@ public class ApplicationRepository {
     }
 
     public List<ApplicationEntity> findApplication(String feedId, String part) {
-        QueryConditional queryConditional;
-        if(part != null){
-            queryConditional = QueryConditional.keyEqualTo(k -> k
-                    .partitionValue(KeyConverter.toPk(DynamoDbEntityType.APPLICATION, feedId))
-                    .sortValue(part)
-            );
-        } else{
-            queryConditional = QueryConditional.keyEqualTo(k -> k
-                    .partitionValue(KeyConverter.toPk(DynamoDbEntityType.APPLICATION, feedId))
-            );
-        }
+        String partitionValue = KeyConverter.toPk(DynamoDbEntityType.APPLICATION, feedId);
+        QueryConditional queryConditional = part != null
+                ? QueryConditional.keyEqualTo(k -> k.partitionValue(partitionValue).sortValue(part))
+                : QueryConditional.keyEqualTo(k -> k.partitionValue(partitionValue));
 
         final SdkIterable<Page<ApplicationEntity>> pagedResult = applicationIndex.query(q -> q
                 .queryConditional(queryConditional)
                 .scanIndexForward(false)
                 .attributesToProject());
 
-        List<ApplicationEntity> applicationEntities = new ArrayList<>();
-        pagedResult.forEach(page -> applicationEntities.addAll(page.items()));
-        return applicationEntities;
+        return pagedResult.stream()
+                .flatMap(page -> page.items().stream())
+                .collect(Collectors.toList());
     }
 
     public ApplicationEntity getApplication(String userId, String feedId){

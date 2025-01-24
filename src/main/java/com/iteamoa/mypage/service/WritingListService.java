@@ -13,8 +13,9 @@ import com.iteamoa.mypage.utils.KeyConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,65 +25,60 @@ public class WritingListService {
     private final UserProfileRepository userProfileRepository;
 
     public List<FeedDto> getWritingList(String creatorId, String sk) {
-        List<FeedEntity> FeedEntities = feedRepository.findFeedByCreatorIdAndSk(creatorId, sk);
-        List<FeedDto> feedDtos = new ArrayList<>();
-        for (FeedEntity feedEntity : FeedEntities) {
-            feedDtos.add(FeedDto.toFeedDto(feedEntity));
-        }
-
-        return feedDtos;
+        return feedRepository.findFeedByCreatorIdAndSk(creatorId, sk).stream()
+                .map(FeedDto::toFeedDto)
+                .collect(Collectors.toList());
     }
 
     public List<ApplicationDto> getApplicationList(String feedId, String part) {
-        List<ApplicationEntity> applicationEntities = applicationRepository.findApplication(feedId, part);
-        List<ApplicationDto> applicationDtos = new ArrayList<>();
-        for (ApplicationEntity applicationEntity : applicationEntities) {
-            applicationDtos.add(ApplicationDto.toApplicationDto(applicationEntity, userProfileRepository.findByUserId(KeyConverter.toSeperatedId(applicationEntity.getPk()))));
-        }
-        return applicationDtos;
+        return applicationRepository.findApplication(feedId, part).stream()
+                .map(applicationEntity -> {
+                    String userId = KeyConverter.toSeperatedId(applicationEntity.getPk());
+                    return ApplicationDto.toApplicationDto(applicationEntity, userProfileRepository.findByUserId(userId));
+                })
+                .collect(Collectors.toList());
     }
 
     public void acceptApplication(ApplicationDto applicationDto) throws Exception {
-        ApplicationEntity applicationEntity = applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk());
-        if (applicationEntity == null) {
-            throw new Exception("Application does not exist");
-        }
+        ApplicationEntity applicationEntity = Objects.requireNonNull(
+                applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk()),
+                "Application does not exist"
+        );
         applicationEntity.setStatus(StatusType.ACCEPTED);
         applicationRepository.updateApplication(applicationEntity);
     }
 
     public void rejectApplication(ApplicationDto applicationDto) throws Exception {
-        ApplicationEntity applicationEntity = applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk());
-        if (applicationEntity == null) {
-            throw new Exception("Application does not exist");
-        }
+        ApplicationEntity applicationEntity = Objects.requireNonNull(
+                applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk()),
+                "Application does not exist"
+        );
         applicationEntity.setStatus(StatusType.REJECTED);
         applicationRepository.updateApplication(applicationEntity);
     }
 
     public void cancelApplication(ApplicationDto applicationDto) throws Exception {
-        ApplicationEntity applicationEntity = applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk());
-        if (applicationEntity == null) {
-            throw new Exception("Application does not exist");
-        }
+        ApplicationEntity applicationEntity = Objects.requireNonNull(
+                applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk()),
+                "Application does not exist"
+        );
         applicationEntity.setStatus(StatusType.PENDING);
         applicationRepository.updateApplication(applicationEntity);
     }
 
     public void closeFeed(FeedDto feedDto) throws Exception {
-        FeedEntity feedEntity = feedRepository.getFeed(feedDto.getPk(), feedDto.getSk());
-        if (feedEntity == null) {
-            throw new Exception("Feed does not exist");
-        }
+        FeedEntity feedEntity = Objects.requireNonNull(
+                feedRepository.getFeed(feedDto.getPk(), feedDto.getSk()),
+                "Feed does not exist"
+        );
         feedEntity.setPostStatus(false);
         feedRepository.updateFeed(feedEntity);
-        List<ApplicationEntity> applicationEntities = applicationRepository.findApplication(feedDto.getPk(), null);
-        for (ApplicationEntity applicationEntity : applicationEntities) {
-            if(applicationEntity.getStatus() == StatusType.PENDING) {
+        applicationRepository.findApplication(feedDto.getPk(), null).stream()
+            .filter(applicationEntity -> applicationEntity.getStatus() == StatusType.PENDING)
+            .forEach(applicationEntity -> {
                 applicationEntity.setStatus(StatusType.REJECTED);
                 applicationRepository.updateApplication(applicationEntity);
-            }
-        }
+            });
     }
 
     public UserProfileDto getUserProfile(String userId) {
