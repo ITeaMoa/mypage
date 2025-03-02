@@ -1,6 +1,7 @@
 package com.iteamoa.mypage.service;
 
 import com.iteamoa.mypage.dto.FeedDto;
+import com.iteamoa.mypage.entity.FeedEntity;
 import com.iteamoa.mypage.repository.FeedRepository;
 import com.iteamoa.mypage.repository.LikeRepository;
 import com.iteamoa.mypage.utils.KeyConverter;
@@ -19,8 +20,9 @@ public class LikeListService {
 
     public List<FeedDto> getLikeFeed(String userId, String feedType) {
         return likeRepository.queryLikeFeed(userId).stream()
-                .map(likeEntity -> FeedDto.toFeedDto(
-                        feedRepository.getFeed(KeyConverter.toSeperatedId(likeEntity.getSk()), feedType)))
+                .map(likeEntity -> feedRepository.getFeed(KeyConverter.toSeperatedId(likeEntity.getSk()), feedType))
+                .filter(FeedEntity::getPostStatus)
+                .map(FeedDto::toFeedDto)
                 .collect(Collectors.toList());
     }
 }
