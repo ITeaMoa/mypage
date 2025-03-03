@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @DynamoDbBean
 public class Comment {
     private String userId;
+    private String commentId;
     private String comment;
     private LocalDateTime timestamp;
     private String name;
@@ -28,6 +29,9 @@ public class Comment {
     public String getUserId() {
         return userId;
     }
+
+    @DynamoDbAttribute("commentId")
+    public String getCommentId() {return commentId;}
 
     @DynamoDbAttribute("comment")
     public String getComment() {
