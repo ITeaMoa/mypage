@@ -28,6 +28,7 @@ public class ApplicationDto {
 
     private String nickname;
     private List<String> tags;
+    private String creatorId;
 
     public static ApplicationDto toApplicationDto(ApplicationEntity applicationEntity) {
         return new ApplicationDto(
@@ -39,7 +40,8 @@ public class ApplicationDto {
                 applicationEntity.getFeedType(),
                 applicationEntity.getTimestamp(),
                 null,
-                null
+                null,
+                applicationEntity.getCreatorId()
         );
     }
 
@@ -53,7 +55,8 @@ public class ApplicationDto {
                 applicationEntity.getFeedType(),
                 applicationEntity.getTimestamp(),
                 userProfileEntity.getNickname(),
-                userProfileEntity.getTags()
+                userProfileEntity.getTags(),
+                applicationEntity.getCreatorId()
         );
     }
 }

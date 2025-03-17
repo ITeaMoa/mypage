@@ -14,12 +14,15 @@ public abstract class BaseEntity {
     private String sk;
     private DynamoDbEntityType entityType;
     private LocalDateTime timestamp;
+    private String creatorId;
+    private Boolean userStatus;
 
     public BaseEntity() {}
-    public BaseEntity(String pk, String sk) {
+    public BaseEntity(String pk, String sk, String creatorId) {
         this.pk = pk;
         this.sk = sk;
         this.timestamp = Objects.requireNonNullElseGet(timestamp, LocalDateTime::now);
+        this.creatorId = creatorId;
     }
 
     @DynamoDbPartitionKey
@@ -47,4 +50,17 @@ public abstract class BaseEntity {
     public LocalDateTime getTimestamp(){
         return timestamp;
     }
+
+    @DynamoDbAttribute("creatorId")
+    @DynamoDbSecondaryPartitionKey(indexNames = {"SearchByCreator-index", "UserStatus-index"})
+    public String getCreatorId(){
+        return creatorId;
+    }
+
+    @DynamoDbAttribute("userStatus")
+    @DynamoDbSecondarySortKey(indexNames = {"UserStatus-index"})
+    public boolean getUserStatus(){
+        return userStatus;
+    }
+
 }

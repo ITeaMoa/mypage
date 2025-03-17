@@ -15,7 +15,6 @@ import java.util.Map;
 @DynamoDbBean
 public class FeedEntity extends BaseEntity {
     private String nickname;
-    private String creatorId;
     private String title;
     private int recruitmentNum;
     private LocalDateTime deadline;
@@ -34,9 +33,9 @@ public class FeedEntity extends BaseEntity {
     public FeedEntity(FeedDto feedDto){
         super(
                 KeyConverter.toPk(DynamoDbEntityType.FEED, feedDto.getPk()),
-                KeyConverter.toPk(DynamoDbEntityType.FEEDTYPE, feedDto.getSk())
+                KeyConverter.toPk(DynamoDbEntityType.FEEDTYPE, feedDto.getSk()),
+                KeyConverter.toPk(DynamoDbEntityType.USER, feedDto.getCreatorId())
         );
-        this.creatorId = KeyConverter.toPk(DynamoDbEntityType.USER, feedDto.getCreatorId());
         this.title = feedDto.getTitle();
         this.recruitmentNum = feedDto.getRecruitmentNum();
         this.deadline = feedDto.getDeadline();
@@ -55,12 +54,6 @@ public class FeedEntity extends BaseEntity {
     @DynamoDbAttribute("nickname")
     public String getNickname() {
         return nickname;
-    }
-
-    @DynamoDbAttribute("creatorId")
-    @DynamoDbSecondaryPartitionKey(indexNames = {"SearchByCreator-index"})
-    public String getCreatorId(){
-        return creatorId;
     }
 
     @DynamoDbAttribute("title")

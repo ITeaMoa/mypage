@@ -26,6 +26,7 @@ public class UserProfileDto {
     private List<String> experiences;
     private String email;
     private LocalDateTime timestamp;
+    private String creatorId;
 
     public static UserProfileDto toUserProfileDto(UserProfileEntity userProfileEntity) {
         return new UserProfileDto(
@@ -40,7 +41,8 @@ public class UserProfileDto {
                 userProfileEntity.getPersonalUrl(),
                 userProfileEntity.getExperiences(),
                 userProfileEntity.getEmail(),
-                userProfileEntity.getTimestamp()
+                userProfileEntity.getTimestamp(),
+                userProfileEntity.getCreatorId()
         );
     }
 }
