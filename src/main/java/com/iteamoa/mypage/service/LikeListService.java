@@ -22,6 +22,7 @@ public class LikeListService {
         return likeRepository.queryLikeFeed(userId).stream()
                 .map(likeEntity -> feedRepository.getFeed(KeyConverter.toSeperatedId(likeEntity.getSk()), feedType))
                 .filter(FeedEntity::getPostStatus)
+                .filter(FeedEntity::getUserStatus)
                 .map(FeedDto::toFeedDto)
                 .collect(Collectors.toList());
     }

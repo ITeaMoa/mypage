@@ -26,6 +26,7 @@ public class WritingListService {
 
     public List<FeedDto> getWritingList(String creatorId, String sk) {
         return feedRepository.findFeedByCreatorIdAndSk(creatorId, sk).stream()
+                .filter(FeedEntity::getUserStatus)
                 .map(FeedDto::toFeedDto)
                 .collect(Collectors.toList());
     }

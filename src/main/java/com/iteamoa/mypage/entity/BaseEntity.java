@@ -52,13 +52,13 @@ public abstract class BaseEntity {
     }
 
     @DynamoDbAttribute("creatorId")
-    @DynamoDbSecondaryPartitionKey(indexNames = {"SearchByCreator-index", "UserStatus-index"})
+    @DynamoDbSecondaryPartitionKey(indexNames = {"SearchByCreator-index", "CreatorId-index"})
     public String getCreatorId(){
         return creatorId;
     }
 
     @DynamoDbAttribute("userStatus")
-    @DynamoDbSecondarySortKey(indexNames = {"UserStatus-index"})
+    @DynamoDbSecondarySortKey(indexNames = {"CreatorId-index"})
     public boolean getUserStatus(){
         return userStatus;
     }
