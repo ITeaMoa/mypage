@@ -20,5 +20,6 @@ spec:
       containers:
       - name: mypage-service
         image: 970547342771.dkr.ecr.ap-northeast-2.amazonaws.com/iteamoa/my-wrlist:latest # Use ECR
+        imagePullPolicy: Always  # Always pull the latest image
         ports:
         - containerPort: 8080  # Check container's exposed port 
