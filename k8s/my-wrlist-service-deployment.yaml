@@ -1,25 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-wrlist-service-deployment
-  namespace: my-namespace  # Match the Fargate namespace
+  name: mypage-deployment
+  namespace: mypage-namespace 
   labels:
-    app: fargate
-    svc: my-wrlist
+    svc: mypage
 spec:
   replicas: 1  # Two pods running the service
   selector:
     matchLabels:
-      app: fargate
-      svc: my-wrlist
+      svc: mypage
   template:
     metadata:
       labels:
-        app: fargate
-        svc: my-wrlist
+        svc: mypage
     spec:
+      imagePullSecrets:
+      - name: ecr-secret  # ECR secret
       containers:
-      - name: my-wrlist-service
+      - name: mypage-service
         image: 970547342771.dkr.ecr.ap-northeast-2.amazonaws.com/iteamoa/my-wrlist:latest # Use ECR
         ports:
         - containerPort: 8080  # Check container's exposed port 
