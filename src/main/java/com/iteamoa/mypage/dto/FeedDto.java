@@ -1,6 +1,5 @@
 package com.iteamoa.mypage.dto;
 
-import com.iteamoa.mypage.constant.DynamoDbEntityType;
 import com.iteamoa.mypage.entity.FeedEntity;
 import com.iteamoa.mypage.utils.Comment;
 import com.iteamoa.mypage.utils.KeyConverter;

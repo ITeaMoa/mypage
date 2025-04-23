@@ -34,6 +34,8 @@ public class FeedEntity extends BaseEntity {
         super(
                 KeyConverter.toPk(DynamoDbEntityType.FEED, feedDto.getPk()),
                 KeyConverter.toPk(DynamoDbEntityType.FEEDTYPE, feedDto.getSk()),
+                DynamoDbEntityType.FEED,
+                feedDto.getTimestamp(),
                 KeyConverter.toPk(DynamoDbEntityType.USER, feedDto.getCreatorId())
         );
         this.title = feedDto.getTitle();
