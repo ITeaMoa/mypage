@@ -4,6 +4,7 @@ import com.iteamoa.mypage.constant.DynamoDbEntityType;
 import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -18,11 +19,13 @@ public abstract class BaseEntity {
     private Boolean userStatus;
 
     public BaseEntity() {}
-    public BaseEntity(String pk, String sk, String creatorId) {
+    public BaseEntity(String pk, String sk, DynamoDbEntityType entityType, LocalDateTime timestamp, String creatorId) {
         this.pk = pk;
         this.sk = sk;
+        this.entityType = entityType;
         this.timestamp = Objects.requireNonNullElseGet(timestamp, LocalDateTime::now);
         this.creatorId = creatorId;
+        this.userStatus = true;
     }
 
     @DynamoDbPartitionKey
