@@ -6,8 +6,8 @@ metadata:
   labels:
     svc: mypage
 spec:
-  revisionHistoryLimit: 2  # Keep the last two revisions
-  replicas: 1  # Two pods running the service
+  revisionHistoryLimit: 2 # Keep the last two revisions
+  replicas: 1 # Two pods running the service
   selector:
     matchLabels:
       svc: mypage
@@ -20,7 +20,7 @@ spec:
         - name: ecr-secret # ECR secret
       containers:
         - name: mypage-service
-          image: 970547342771.dkr.ecr.ap-northeast-2.amazonaws.com/iteamoa/my-wrlist:f1e7f7b # Use ECR
+          image: 970547342771.dkr.ecr.ap-northeast-2.amazonaws.com/iteamoa/my-wrlist:8e5da21 # Use ECR
           imagePullPolicy: Always # Always pull the latest image
           ports:
             - containerPort: 8080 # Check container's exposed port 
