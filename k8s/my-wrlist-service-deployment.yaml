@@ -6,7 +6,7 @@ metadata:
   labels:
     svc: mypage
 spec:
-  revisionHistoryLimit: 2 # Keep the last two revisions
+  revisionHistoryLimit: 1 # Keep the last two revisions
   replicas: 1 # Two pods running the service
   selector:
     matchLabels:
