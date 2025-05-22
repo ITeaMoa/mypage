@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mypage-deployment
-  namespace: mypage-namespace 
+  namespace: mypage-namespace
   labels:
     svc: mypage
 spec:
@@ -17,10 +17,10 @@ spec:
         svc: mypage
     spec:
       imagePullSecrets:
-      - name: ecr-secret  # ECR secret
+        - name: ecr-secret # ECR secret
       containers:
-      - name: mypage-service
-        image: 970547342771.dkr.ecr.ap-northeast-2.amazonaws.com/iteamoa/my-wrlist:latest # Use ECR
-        imagePullPolicy: Always  # Always pull the latest image
-        ports:
-        - containerPort: 8080  # Check container's exposed port 
+        - name: mypage-service
+          image: 970547342771.dkr.ecr.ap-northeast-2.amazonaws.com/iteamoa/my-wrlist:f1e7f7b # Use ECR
+          imagePullPolicy: Always # Always pull the latest image
+          ports:
+            - containerPort: 8080 # Check container's exposed port 
