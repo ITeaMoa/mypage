@@ -40,7 +40,21 @@ spec:
     - host: api-iteamoa.brynnpark.cloud
       http:
         paths:
-        - path: /my
+        - path: /my/writing
+          pathType: Prefix
+          backend:
+            service:
+              name: mypage-service
+              port:
+                number: 80
+        - path: /my/temp
+          pathType: Prefix
+          backend:
+            service:
+              name: mypage-service
+              port:
+                number: 80
+        - path: /my/like
           pathType: Prefix
           backend:
             service:
