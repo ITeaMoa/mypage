@@ -4,7 +4,6 @@ import com.iteamoa.mypage.constant.DynamoDbEntityType;
 import lombok.Setter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -38,9 +37,7 @@ public abstract class BaseEntity {
     @DynamoDbAttribute("Sk")
     @DynamoDbSecondaryPartitionKey(indexNames = {"MostLikedFeed-index", "PostedFeed-index", "Application-index"})
     @DynamoDbSecondarySortKey(indexNames = {"SearchByCreator-index"})
-    public String getSk() {
-        return sk;
-    }
+    public String getSk() {return sk;}
 
     @DynamoDbAttribute("entityType")
     @DynamoDbSecondarySortKey(indexNames = "Like-index")
@@ -56,14 +53,8 @@ public abstract class BaseEntity {
 
     @DynamoDbAttribute("creatorId")
     @DynamoDbSecondaryPartitionKey(indexNames = {"SearchByCreator-index", "CreatorId-index"})
-    public String getCreatorId(){
-        return creatorId;
-    }
+    public String getCreatorId(){return creatorId;}
 
     @DynamoDbAttribute("userStatus")
-    @DynamoDbSecondarySortKey(indexNames = {"CreatorId-index"})
-    public boolean getUserStatus(){
-        return userStatus;
-    }
-
+    public Boolean getUserStatus(){return userStatus;}
 }
