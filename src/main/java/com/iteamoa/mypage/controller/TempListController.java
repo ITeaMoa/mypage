@@ -19,4 +19,5 @@ public class TempListController {
     public ResponseEntity<?> getSavedFeedList(@RequestParam String creatorId, @RequestParam String feedType) {
         return ResponseEntity.ok(tempListService.getSavedList(creatorId, feedType));
     }
+    // 주희 괘씸해
 }
