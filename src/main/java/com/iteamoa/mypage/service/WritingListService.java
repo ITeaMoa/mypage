@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +28,7 @@ public class WritingListService {
     public List<FeedDto> getWritingList(String creatorId, String sk) {
         return feedRepository.findFeedByCreatorIdAndSk(creatorId, sk).stream()
                 .filter(FeedEntity::getUserStatus)
+                .filter(Predicate.not(FeedEntity::getSavedFeed))
                 .map(FeedDto::toFeedDto)
                 .collect(Collectors.toList());
     }
