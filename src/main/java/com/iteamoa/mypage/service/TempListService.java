@@ -23,4 +23,6 @@ public class TempListService {
                 .collect(Collectors.toList());
     }
 
+    public void updateFeed(FeedDto feedDto) {feedRepository.updateFeed(new FeedEntity(feedDto));}
+
 }

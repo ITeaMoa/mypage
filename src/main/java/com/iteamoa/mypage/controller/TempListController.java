@@ -1,12 +1,11 @@
 package com.iteamoa.mypage.controller;
 
+import com.iteamoa.mypage.dto.FeedDto;
 import com.iteamoa.mypage.service.TempListService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +18,11 @@ public class TempListController {
     public ResponseEntity<?> getSavedFeedList(@RequestParam String creatorId, @RequestParam String feedType) {
         return ResponseEntity.ok(tempListService.getSavedList(creatorId, feedType));
     }
-    // 주희 괘씸해
+
+    @PatchMapping
+    public ResponseEntity<?> updateFeed(@RequestBody FeedDto feedDto) {
+        tempListService.updateFeed(feedDto);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

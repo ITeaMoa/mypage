@@ -28,7 +28,7 @@ public class WritingListService {
     public List<FeedDto> getWritingList(String creatorId, String sk) {
         return feedRepository.findFeedByCreatorIdAndSk(creatorId, sk).stream()
                 .filter(FeedEntity::getUserStatus)
-                .filter(Predicate.not(FeedEntity::getSavedFeed))
+                .filter(feedEntity -> !feedEntity.getSavedFeed() && feedEntity.getPostStatus())
                 .map(FeedDto::toFeedDto)
                 .collect(Collectors.toList());
     }
