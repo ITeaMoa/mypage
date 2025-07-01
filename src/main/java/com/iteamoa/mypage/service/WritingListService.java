@@ -10,6 +10,7 @@ import com.iteamoa.mypage.repository.ApplicationRepository;
 import com.iteamoa.mypage.repository.FeedRepository;
 import com.iteamoa.mypage.repository.UserProfileRepository;
 import com.iteamoa.mypage.utils.KeyConverter;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,7 @@ public class WritingListService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void acceptApplication(ApplicationDto applicationDto) throws Exception {
         ApplicationEntity applicationEntity = Objects.requireNonNull(
                 applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk()),
@@ -50,6 +52,7 @@ public class WritingListService {
         applicationRepository.updateApplication(applicationEntity);
     }
 
+    @Transactional
     public void rejectApplication(ApplicationDto applicationDto) throws Exception {
         ApplicationEntity applicationEntity = Objects.requireNonNull(
                 applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk()),
@@ -59,6 +62,7 @@ public class WritingListService {
         applicationRepository.updateApplication(applicationEntity);
     }
 
+    @Transactional
     public void cancelApplication(ApplicationDto applicationDto) throws Exception {
         ApplicationEntity applicationEntity = Objects.requireNonNull(
                 applicationRepository.getApplication(applicationDto.getPk(), applicationDto.getSk()),
@@ -68,6 +72,7 @@ public class WritingListService {
         applicationRepository.updateApplication(applicationEntity);
     }
 
+    @Transactional
     public void closeFeed(FeedDto feedDto) throws Exception {
         FeedEntity feedEntity = Objects.requireNonNull(
                 feedRepository.getFeed(feedDto.getPk(), feedDto.getSk()),
